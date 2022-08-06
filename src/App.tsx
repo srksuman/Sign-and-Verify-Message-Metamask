@@ -10,10 +10,12 @@ function App() {
     <div className="main-app">
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<SignMessage />} />
-          <Route path="/verify" element={<VerifyMessage />} />
-        </Routes>
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<SignMessage />} />
+            <Route path="/verify" element={<VerifyMessage />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </div>
   );
