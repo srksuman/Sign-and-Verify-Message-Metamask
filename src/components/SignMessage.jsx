@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { useRef, useState, useContext } from "react";
+import { useRef, useContext } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
 import { UserContext } from "../context/UserContext";
 
