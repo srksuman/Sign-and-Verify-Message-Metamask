@@ -7,7 +7,7 @@ import Header from "./components/common/Header/Header";
 
 function App() {
   return (
-    <div className="main-app container">
+    <div className="main-app">
       <BrowserRouter>
         <Header />
         <Routes>
