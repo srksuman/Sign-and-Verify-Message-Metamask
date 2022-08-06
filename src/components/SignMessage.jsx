@@ -1,21 +1,25 @@
 import { ethers } from "ethers";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
+import { UserContext } from "../context/UserContext";
 
 const SignMessage = () => {
   const trackMessage = useRef(null);
-  const [details, setDetails] = useState({});
+  const { signMessageDetails, setSignMessageDetails } = useContext(UserContext);
   const signMessage = async () => {
     const userMessage = trackMessage.current.value;
-    console.log(userMessage);
     if (userMessage.trim()) {
       if (window.ethereum) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const address = await provider.send("eth_requestAccounts", [])[0];
-        const signer = provider.getSigner(address);
+        const address = await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
         const signature = await signer.signMessage(userMessage.trim());
         console.log(signature);
-        setDetails({ message: userMessage, address, signature });
+        setSignMessageDetails({
+          message: userMessage,
+          address: address[0],
+          signature,
+        });
         trackMessage.current.value = "";
       } else {
         console.log("metamask dosent exists!!!");
@@ -25,8 +29,8 @@ const SignMessage = () => {
     }
   };
   const copyTheResult = (event) => {
-    const text = event.target.innerText;
-    console.log(text);
+    const value = event.target.attributes.getNamedItem("custom-value").value;
+    window.navigator.clipboard.writeText(value);
   };
   return (
     <div className="sign-msg-wrapper">
@@ -47,38 +51,51 @@ const SignMessage = () => {
       >
         Sign Message
       </button>
-      {Object.keys(details) && (
+      {Object.keys(signMessageDetails).length > 0 && (
         <div className="sign-details">
           <div className="sign-address">
             <p>Address:</p>
             <p
+              custom-value={signMessageDetails.address}
               onClick={(e) => {
                 copyTheResult(e);
               }}
               className="address"
             >
-              0x726...603 <AiOutlineCopy />
+              {`${signMessageDetails.address
+                .toString()
+                ?.slice(0, 4)}...${signMessageDetails.address
+                .toString()
+                ?.slice(-4)}`}{" "}
+              <AiOutlineCopy />
             </p>
           </div>
           <div className="sign-message">
             <p>Message:</p>
             <p
+              custom-value={signMessageDetails.message}
               onClick={(e) => {
                 copyTheResult(e);
               }}
             >
-              Suman raj khanal <AiOutlineCopy />
+              {signMessageDetails.message} <AiOutlineCopy />
             </p>
           </div>
           <div className="sign-signature">
             <p>Signature:</p>
             <p
+              custom-value={signMessageDetails.signature}
               className="address"
               onClick={(e) => {
                 copyTheResult(e);
               }}
             >
-              0xdba...fb1b <AiOutlineCopy color="black" />
+              {`${signMessageDetails.signature
+                .toString()
+                ?.slice(0, 4)}...${signMessageDetails.signature
+                .toString()
+                ?.slice(-4)}`}{" "}
+              <AiOutlineCopy color="black" />
             </p>
           </div>
         </div>
