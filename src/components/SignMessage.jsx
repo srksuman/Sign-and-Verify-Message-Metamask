@@ -24,6 +24,10 @@ const SignMessage = () => {
       console.log("Empty message cannot be signed");
     }
   };
+  const copyTheResult = (event) => {
+    const text = event.target.innerText;
+    console.log(text);
+  };
   return (
     <div className="sign-msg-wrapper">
       <textarea
@@ -47,19 +51,33 @@ const SignMessage = () => {
         <div className="sign-details">
           <div className="sign-address">
             <p>Address:</p>
-            <p className="address">
+            <p
+              onClick={(e) => {
+                copyTheResult(e);
+              }}
+              className="address"
+            >
               0x726...603 <AiOutlineCopy />
             </p>
           </div>
           <div className="sign-message">
             <p>Message:</p>
-            <p>
+            <p
+              onClick={(e) => {
+                copyTheResult(e);
+              }}
+            >
               Suman raj khanal <AiOutlineCopy />
             </p>
           </div>
           <div className="sign-signature">
             <p>Signature:</p>
-            <p className="address">
+            <p
+              className="address"
+              onClick={(e) => {
+                copyTheResult(e);
+              }}
+            >
               0xdba...fb1b <AiOutlineCopy color="black" />
             </p>
           </div>
