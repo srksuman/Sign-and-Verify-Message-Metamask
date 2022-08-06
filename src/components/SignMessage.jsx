@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import { useRef, useState } from "react";
+import { AiOutlineCopy } from "react-icons/ai";
 
 const SignMessage = () => {
   const trackMessage = useRef(null);
@@ -13,6 +14,7 @@ const SignMessage = () => {
         const address = await provider.send("eth_requestAccounts", [])[0];
         const signer = provider.getSigner(address);
         const signature = await signer.signMessage(userMessage.trim());
+        console.log(signature);
         setDetails({ message: userMessage, address, signature });
         trackMessage.current.value = "";
       } else {
@@ -41,6 +43,28 @@ const SignMessage = () => {
       >
         Sign Message
       </button>
+      {Object.keys(details) && (
+        <div className="sign-details">
+          <div className="sign-address">
+            <p>Address:</p>
+            <p className="address">
+              0x726...603 <AiOutlineCopy />
+            </p>
+          </div>
+          <div className="sign-message">
+            <p>Message:</p>
+            <p>
+              Suman raj khanal <AiOutlineCopy />
+            </p>
+          </div>
+          <div className="sign-signature">
+            <p>Signature:</p>
+            <p className="address">
+              0xdba...fb1b <AiOutlineCopy color="black" />
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
