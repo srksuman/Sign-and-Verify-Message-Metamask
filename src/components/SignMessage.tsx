@@ -3,6 +3,7 @@ import { useRef, useContext } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
 import { UserContext } from "../context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
+import { AUDIO } from "../constants/Audio";
 
 declare var window: any;
 
@@ -10,6 +11,9 @@ const SignMessage = () => {
   const trackMessage = useRef<any>(null);
   const { signMessageDetails, setSignMessageDetails } = useContext(UserContext);
   const signMessage = async () => {
+    const warnAudio = new Audio(AUDIO.WARN);
+    const dangerAudio = new Audio(AUDIO.DANGER);
+    const successAudio = new Audio(AUDIO.SUCCESS);
     const userMessage = trackMessage.current.value;
     if (userMessage.trim()) {
       if (window.ethereum) {
@@ -23,21 +27,34 @@ const SignMessage = () => {
           address: address[0],
           signature,
         });
+        successAudio.play();
         trackMessage.current.value = "";
       } else {
-        console.log("metamask dosent exists!!!");
-        toast.warning('Metamask dosent exists!', {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
+        warnAudio.play();
+        toast.warning(
+          `Metamask dosent exists! Add metamask before signing message.`,
+          {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
       }
     } else {
-      console.log("Empty message cannot be signed");
+      dangerAudio.play();
+      toast.error(`Empty message cannot be signed!.`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
   const copyTheResult = (event: any) => {
@@ -62,6 +79,7 @@ const SignMessage = () => {
         className="sign-msg"
         name="textarea"
         id=""
+        placeholder="Enter message"
         cols={60}
         rows={10}
       ></textarea>
