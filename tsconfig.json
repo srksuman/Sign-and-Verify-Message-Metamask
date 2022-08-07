@@ -17,5 +17,5 @@
     "jsx": "react-jsx"
   },
   "include": ["src", "src/constants"],
-  "typeRoots": [ "types/"]
+  "typeRoots": ["types/"] //to include audio and declear differnet types eg: mp3
 }

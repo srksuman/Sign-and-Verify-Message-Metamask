@@ -4,24 +4,32 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import VerifyMessage from "./components/VerifyMessage";
 import SignMessage from "./components/SignMessage";
 import Header from "./components/common/Header/Header";
-import { UserContext } from "./context/UserContext";
-import 'react-toastify/dist/ReactToastify.css';
+import {
+  SignMessageContext,
+  VerifyMessageContext,
+} from "./context/UserContext";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [signMessageDetails, setSignMessageDetails] = useState({});
+  const [verifyMessageDetails, setVerifyMessageDetails] = useState({});
   return (
     <div className="main-app">
-      <UserContext.Provider
+      <SignMessageContext.Provider
         value={{ signMessageDetails, setSignMessageDetails }}
       >
-        <BrowserRouter>
-          <Header />
+        <VerifyMessageContext.Provider
+          value={{ verifyMessageDetails, setVerifyMessageDetails }}
+        >
+          <BrowserRouter>
+            <Header />
             <Routes>
               <Route path="/" element={<SignMessage />} />
               <Route path="/verify" element={<VerifyMessage />} />
             </Routes>
-        </BrowserRouter>
-      </UserContext.Provider>
+          </BrowserRouter>
+        </VerifyMessageContext.Provider>
+      </SignMessageContext.Provider>
     </div>
   );
 }

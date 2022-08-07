@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { useRef, useContext } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
-import { UserContext } from "../context/UserContext";
+import { SignMessageContext } from "../context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import { AUDIO } from "../constants/Audio";
 
@@ -9,7 +9,7 @@ declare var window: any;
 
 const SignMessage = () => {
   const trackMessage = useRef<any>(null);
-  const { signMessageDetails, setSignMessageDetails } = useContext(UserContext);
+  const { signMessageDetails, setSignMessageDetails } = useContext(SignMessageContext);
   const signMessage = async () => {
     const userMessage = trackMessage.current.value;
     if (userMessage.trim()) {

@@ -1,3 +1,4 @@
 import { createContext } from "react";
 
-export const UserContext = createContext<any>({});
+export const SignMessageContext = createContext<any>({});
+export const VerifyMessageContext = createContext<any>({});
