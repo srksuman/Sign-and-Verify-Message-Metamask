@@ -4,15 +4,16 @@ import { ToastContainer, toast } from "react-toastify";
 import { VerifyMessageContext } from "@context/UserContext";
 import { motion } from "framer-motion";
 import { variants } from "@components/variants/variants";
+import { AUDIO } from "@constants/Audio";
 
 const VerifyMessage = () => {
   const { verifyMessageDetails, setVerifyMessageDetails }: any =
     useContext(VerifyMessageContext);
   const verifyMessage = () => {
     if (
-      verifyMessageDetails.message.trim() &&
-      verifyMessageDetails.signature.trim() &&
-      verifyMessageDetails.address.trim()
+      verifyMessageDetails.message &&
+      verifyMessageDetails.signature &&
+      verifyMessageDetails.address
     ) {
       try {
         console.log(verifyMessageDetails);
@@ -31,6 +32,8 @@ const VerifyMessage = () => {
           verifyMessageDetails.address.toString().toLowerCase()
         ) {
           console.log("Test");
+          AUDIO.dangerAudio.play();
+
           toast.error(`Message varification failed!!!`, {
             position: "bottom-right",
             autoClose: 5000,
@@ -42,6 +45,8 @@ const VerifyMessage = () => {
           });
         } else {
           console.log("signAddress");
+          AUDIO.successAudio.play();
+
           toast.success(`Congratulation!!! Message is Verified.`, {
             position: "bottom-right",
             autoClose: 5000,
@@ -54,6 +59,7 @@ const VerifyMessage = () => {
         }
       } catch (e) {
         console.log("failed");
+        AUDIO.dangerAudio.play();
         toast.error(`Message varification failed!!!`, {
           position: "bottom-right",
           autoClose: 5000,
@@ -65,6 +71,7 @@ const VerifyMessage = () => {
         });
       }
     } else {
+      AUDIO.dangerAudio.play();
       toast.error(`Empty Fields! Message Cannot be verified.`, {
         position: "bottom-right",
         autoClose: 5000,
