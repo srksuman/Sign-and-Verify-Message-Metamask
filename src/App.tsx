@@ -16,12 +16,10 @@ function App() {
       >
         <BrowserRouter>
           <Header />
-          <div className="container">
             <Routes>
               <Route path="/" element={<SignMessage />} />
               <Route path="/verify" element={<VerifyMessage />} />
             </Routes>
-          </div>
         </BrowserRouter>
       </UserContext.Provider>
     </div>

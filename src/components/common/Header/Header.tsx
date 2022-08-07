@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 const Header = () => {
+  const location = useLocation();
   return (
     <div className="heading">
       <nav className="container">
-        <Link className="link" to="/">Sign Message</Link>
-        <Link className="link" to="/verify">Verify Message</Link>
+        <Link  className={`link ${location.pathname.toString() === "/" && "active"}`} to="/">
+          Sign Message
+        </Link>
+        <Link className={`link ${location.pathname.toString() === "/verify" && "active"}`} to="/verify">
+          Verify Message
+        </Link>
       </nav>
     </div>
   );

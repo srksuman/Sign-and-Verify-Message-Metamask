@@ -59,7 +59,9 @@ const SignMessage = () => {
     window.navigator.clipboard.writeText(value);
   };
   return (
-    <div className="sign-msg-wrapper">
+    <>
+    <div className="sign-bg"></div>
+    <div className="sign-msg-wrapper common-div">
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
@@ -139,6 +141,7 @@ const SignMessage = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
