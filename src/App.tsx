@@ -5,6 +5,7 @@ import VerifyMessage from "./components/VerifyMessage";
 import SignMessage from "./components/SignMessage";
 import Header from "./components/common/Header/Header";
 import { UserContext } from "./context/UserContext";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [signMessageDetails, setSignMessageDetails] = useState({});

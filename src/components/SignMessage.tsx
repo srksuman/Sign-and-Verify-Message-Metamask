@@ -2,9 +2,12 @@ import { ethers } from "ethers";
 import { useRef, useContext } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
 import { UserContext } from "../context/UserContext";
+import { ToastContainer, toast } from "react-toastify";
+
+declare var window: any;
 
 const SignMessage = () => {
-  const trackMessage = useRef(null);
+  const trackMessage = useRef<any>(null);
   const { signMessageDetails, setSignMessageDetails } = useContext(UserContext);
   const signMessage = async () => {
     const userMessage = trackMessage.current.value;
@@ -23,24 +26,44 @@ const SignMessage = () => {
         trackMessage.current.value = "";
       } else {
         console.log("metamask dosent exists!!!");
+        toast.warning('Metamask dosent exists!', {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
       }
     } else {
       console.log("Empty message cannot be signed");
     }
   };
-  const copyTheResult = (event) => {
+  const copyTheResult = (event: any) => {
     const value = event.target.attributes.getNamedItem("custom-value").value;
     window.navigator.clipboard.writeText(value);
   };
   return (
     <div className="sign-msg-wrapper">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <textarea
         ref={trackMessage}
         className="sign-msg"
         name="textarea"
         id=""
-        cols="60"
-        rows="10"
+        cols={60}
+        rows={10}
       ></textarea>
       <button
         onClick={() => {

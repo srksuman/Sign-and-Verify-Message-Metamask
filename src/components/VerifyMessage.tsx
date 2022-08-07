@@ -1,10 +1,19 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 
+interface iFormDefails {
+  message: string;
+  signature: string;
+  address: string;
+}
+
 const VerifyMessage = () => {
-  const [formDetails, setFormDetails] = useState({});
+  const [formDetails, setFormDetails] = useState<iFormDefails>({
+    message: "",
+    signature: "",
+    address: "",
+  });
   const verifyMessage = () => {
-    console.log(formDetails);
     console.log(formDetails.message);
     if (
       formDetails.message.trim() &&
@@ -54,8 +63,8 @@ const VerifyMessage = () => {
           className="verify-message"
           name=""
           id=""
-          cols="30"
-          rows="10"
+          cols={30}
+          rows={10}
           placeholder="Message"
           onChange={(e) => {
             setFormDetails((prev) => ({ ...prev, message: e.target.value }));
