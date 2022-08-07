@@ -4,8 +4,22 @@ import { AiOutlineCopy } from "react-icons/ai";
 import { SignMessageContext } from "@context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import { AUDIO } from "@constants/Audio";
+import { motion } from "framer-motion";
 
 declare var window: any;
+const variants = {
+  initial: {
+    opacity: 0,
+    x: -500,
+  },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transaction: {
+      duration: 0.5,
+    },
+  },
+};
 
 const SignMessage = () => {
   const trackMessage = useRef<any>(null);
@@ -61,19 +75,31 @@ const SignMessage = () => {
   };
   return (
     <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="sign-bg"></div>
-      <div className="sign-msg-wrapper common-div">
-        <ToastContainer
-          position="bottom-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+      <motion.div
+        variants={variants}
+        initial="initial"
+        animate="animate"
+        drag
+        dragConstraints={{
+          top: -20,
+          left: -30,
+          right: 20,
+          bottom: 20,
+        }}
+        className="sign-msg-wrapper common-div"
+      >
         <textarea
           ref={trackMessage}
           className="sign-msg"
@@ -141,7 +167,7 @@ const SignMessage = () => {
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
     </>
   );
 };
