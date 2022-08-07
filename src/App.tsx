@@ -1,13 +1,10 @@
 import React, { createContext, useState } from "react";
-import "./assets/styles/index.scss";
+import "@assets/styles/index.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import VerifyMessage from "./components/VerifyMessage";
-import SignMessage from "./components/SignMessage";
-import Header from "./components/common/Header/Header";
-import {
-  SignMessageContext,
-  VerifyMessageContext,
-} from "./context/UserContext";
+import VerifyMessage from "@components/VerifyMessage";
+import SignMessage from "@components/SignMessage";
+import Header from "@components/common/Header/Header";
+import { SignMessageContext, VerifyMessageContext } from "@context/UserContext";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {

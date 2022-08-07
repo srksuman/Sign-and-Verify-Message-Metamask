@@ -1,15 +1,16 @@
 import { ethers } from "ethers";
 import { useRef, useContext } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
-import { SignMessageContext } from "../context/UserContext";
+import { SignMessageContext } from "@context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
-import { AUDIO } from "../constants/Audio";
+import { AUDIO } from "@constants/Audio";
 
 declare var window: any;
 
 const SignMessage = () => {
   const trackMessage = useRef<any>(null);
-  const { signMessageDetails, setSignMessageDetails } = useContext(SignMessageContext);
+  const { signMessageDetails, setSignMessageDetails }: any =
+    useContext(SignMessageContext);
   const signMessage = async () => {
     const userMessage = trackMessage.current.value;
     if (userMessage.trim()) {
@@ -60,87 +61,87 @@ const SignMessage = () => {
   };
   return (
     <>
-    <div className="sign-bg"></div>
-    <div className="sign-msg-wrapper common-div">
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <textarea
-        ref={trackMessage}
-        className="sign-msg"
-        name="textarea"
-        id=""
-        placeholder="Enter message"
-        cols={60}
-        rows={10}
-      ></textarea>
-      <button
-        onClick={() => {
-          signMessage();
-        }}
-        type="button"
-        className="sign-btn"
-      >
-        Sign Message
-      </button>
-      {Object.keys(signMessageDetails).length > 0 && (
-        <div className="sign-details">
-          <div className="sign-address">
-            <p>Address:</p>
-            <p
-              custom-value={signMessageDetails.address}
-              onClick={(e) => {
-                copyTheResult(e);
-              }}
-              className="address"
-            >
-              {`${signMessageDetails.address
-                .toString()
-                ?.slice(0, 4)}...${signMessageDetails.address
-                .toString()
-                ?.slice(-4)}`}{" "}
-              <AiOutlineCopy />
-            </p>
+      <div className="sign-bg"></div>
+      <div className="sign-msg-wrapper common-div">
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <textarea
+          ref={trackMessage}
+          className="sign-msg"
+          name="textarea"
+          id=""
+          placeholder="Enter message"
+          cols={60}
+          rows={10}
+        ></textarea>
+        <button
+          onClick={() => {
+            signMessage();
+          }}
+          type="button"
+          className="sign-btn"
+        >
+          Sign Message
+        </button>
+        {Object.keys(signMessageDetails).length > 0 && (
+          <div className="sign-details">
+            <div className="sign-address">
+              <p>Address:</p>
+              <p
+                custom-value={signMessageDetails.address}
+                onClick={(e) => {
+                  copyTheResult(e);
+                }}
+                className="address"
+              >
+                {`${signMessageDetails.address
+                  .toString()
+                  ?.slice(0, 4)}...${signMessageDetails.address
+                  .toString()
+                  ?.slice(-4)}`}{" "}
+                <AiOutlineCopy />
+              </p>
+            </div>
+            <div className="sign-message">
+              <p>Message:</p>
+              <p
+                custom-value={signMessageDetails.message}
+                onClick={(e) => {
+                  copyTheResult(e);
+                }}
+              >
+                {signMessageDetails.message} <AiOutlineCopy />
+              </p>
+            </div>
+            <div className="sign-signature">
+              <p>Signature:</p>
+              <p
+                custom-value={signMessageDetails.signature}
+                className="address"
+                onClick={(e) => {
+                  copyTheResult(e);
+                }}
+              >
+                {`${signMessageDetails.signature
+                  .toString()
+                  ?.slice(0, 4)}...${signMessageDetails.signature
+                  .toString()
+                  ?.slice(-4)}`}{" "}
+                <AiOutlineCopy color="black" />
+              </p>
+            </div>
           </div>
-          <div className="sign-message">
-            <p>Message:</p>
-            <p
-              custom-value={signMessageDetails.message}
-              onClick={(e) => {
-                copyTheResult(e);
-              }}
-            >
-              {signMessageDetails.message} <AiOutlineCopy />
-            </p>
-          </div>
-          <div className="sign-signature">
-            <p>Signature:</p>
-            <p
-              custom-value={signMessageDetails.signature}
-              className="address"
-              onClick={(e) => {
-                copyTheResult(e);
-              }}
-            >
-              {`${signMessageDetails.signature
-                .toString()
-                ?.slice(0, 4)}...${signMessageDetails.signature
-                .toString()
-                ?.slice(-4)}`}{" "}
-              <AiOutlineCopy color="black" />
-            </p>
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </>
   );
 };

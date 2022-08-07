@@ -1,16 +1,10 @@
 import { useContext } from "react";
 import { ethers } from "ethers";
 import { ToastContainer, toast } from "react-toastify";
-import { VerifyMessageContext } from "../context/UserContext";
-
-interface iFormDefails {
-  message: string;
-  signature: string;
-  address: string;
-}
+import { VerifyMessageContext } from "@context/UserContext";
 
 const VerifyMessage = () => {
-  const { verifyMessageDetails, setVerifyMessageDetails } =
+  const { verifyMessageDetails, setVerifyMessageDetails }: any =
     useContext(VerifyMessageContext);
   const verifyMessage = () => {
     if (
@@ -24,11 +18,17 @@ const VerifyMessage = () => {
           verifyMessageDetails.message.trim(),
           verifyMessageDetails.signature.trim()
         );
-        console.log( verifyMessageDetails.address.trim())
-        console.log( signAddress)
-        console.log(signAddress.toLowerCase().trim()===verifyMessageDetails.address.toLowerCase().trim());
-        if (signAddress.toString().toLowerCase() !== verifyMessageDetails.address.toString().toLowerCase()) {
-         console.log("Test");
+        console.log(verifyMessageDetails.address.trim());
+        console.log(signAddress);
+        console.log(
+          signAddress.toLowerCase().trim() ===
+            verifyMessageDetails.address.toLowerCase().trim()
+        );
+        if (
+          signAddress.toString().toLowerCase() !==
+          verifyMessageDetails.address.toString().toLowerCase()
+        ) {
+          console.log("Test");
           toast.error(`Message varification failed!!!`, {
             position: "bottom-right",
             autoClose: 5000,
@@ -51,7 +51,7 @@ const VerifyMessage = () => {
           });
         }
       } catch (e) {
-        console.log("failed")
+        console.log("failed");
         toast.error(`Message varification failed!!!`, {
           position: "bottom-right",
           autoClose: 5000,
