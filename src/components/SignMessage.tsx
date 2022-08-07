@@ -5,21 +5,9 @@ import { SignMessageContext } from "@context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import { AUDIO } from "@constants/Audio";
 import { motion } from "framer-motion";
+import { variants } from "@components/variants/variants";
 
 declare var window: any;
-const variants = {
-  initial: {
-    opacity: 0,
-    x: -500,
-  },
-  animate: {
-    opacity: 1,
-    x: 0,
-    transaction: {
-      duration: 0.5,
-    },
-  },
-};
 
 const SignMessage = () => {
   const trackMessage = useRef<any>(null);

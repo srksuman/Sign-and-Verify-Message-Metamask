@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { ethers } from "ethers";
 import { ToastContainer, toast } from "react-toastify";
 import { VerifyMessageContext } from "@context/UserContext";
+import { motion } from "framer-motion";
+import { variants } from "@components/variants/variants";
 
 const VerifyMessage = () => {
   const { verifyMessageDetails, setVerifyMessageDetails }: any =
@@ -76,7 +78,6 @@ const VerifyMessage = () => {
   };
   return (
     <>
-      <div className="verify-bg"></div>
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
@@ -88,7 +89,20 @@ const VerifyMessage = () => {
         draggable
         pauseOnHover
       />
-      <div className="verify-msg-wrapper common-div">
+      <div className="verify-bg"></div>
+      <motion.div
+        variants={variants}
+        initial="initial"
+        animate="animate"
+        drag
+        dragConstraints={{
+          top: -20,
+          left: -30,
+          right: 20,
+          bottom: 20,
+        }}
+        className="verify-msg-wrapper common-div"
+      >
         <h4 className="verify-text">Verify Message:</h4>
         <div className="verify-form">
           <input
@@ -138,7 +152,7 @@ const VerifyMessage = () => {
             Verify Message
           </button>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
