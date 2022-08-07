@@ -11,9 +11,6 @@ const SignMessage = () => {
   const trackMessage = useRef<any>(null);
   const { signMessageDetails, setSignMessageDetails } = useContext(UserContext);
   const signMessage = async () => {
-    const warnAudio = new Audio(AUDIO.WARN);
-    const dangerAudio = new Audio(AUDIO.DANGER);
-    const successAudio = new Audio(AUDIO.SUCCESS);
     const userMessage = trackMessage.current.value;
     if (userMessage.trim()) {
       if (window.ethereum) {
@@ -27,10 +24,10 @@ const SignMessage = () => {
           address: address[0],
           signature,
         });
-        successAudio.play();
+        AUDIO.successAudio.play();
         trackMessage.current.value = "";
       } else {
-        warnAudio.play();
+        AUDIO.warnAudio.play();
         toast.warning(
           `Metamask dosent exists! Add metamask before signing message.`,
           {
@@ -45,7 +42,7 @@ const SignMessage = () => {
         );
       }
     } else {
-      dangerAudio.play();
+      AUDIO.dangerAudio.play();
       toast.error(`Empty message cannot be signed!.`, {
         position: "bottom-right",
         autoClose: 5000,
