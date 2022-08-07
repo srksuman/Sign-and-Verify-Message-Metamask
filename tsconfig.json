@@ -15,15 +15,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
-      "@constants/*": ["src/constants/*"],
-      "@types/*": ["src/types/*"],
-      "@context/*": ["src/context/*"]
-    }
+    "jsx": "react-jsx"
   },
   "include": ["src", "src/constants", "context"],
   "typeRoots": ["types/"] //to include audio and declear differnet types eg: mp3
